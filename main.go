@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/roshan8/BuzzMe/user"
+	"github.com/buzzme/user"
 )
 
 func main() {

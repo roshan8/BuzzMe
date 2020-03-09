@@ -23,7 +23,7 @@ func InitUsers() {
 
 	users := Users{}
 
-	UsersYamlFile, err := ioutil.ReadFile("users.yaml")
+	UsersYamlFile, err := ioutil.ReadFile("config/users.yaml") //Todo: need to fetch an abosolute path later
 	fmt.Printf("%s", UsersYamlFile)
 
 	if err != nil {
