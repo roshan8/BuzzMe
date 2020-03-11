@@ -5,23 +5,15 @@ import (
 	"io/ioutil"
 	"log"
 
+	"github.com/buzzme/schema"
+
 	"gopkg.in/yaml.v2"
 )
 
-// Note: struct fields must be public in order for unmarshal to (Variable name should start with Capital letter)
-type UserDetails struct {
-	Username string `yaml:"username"`
-	Email    string `yaml:"email"`
-	Phone    string `yaml:"phone"`
-}
-
-type Users struct {
-	UserConfigs []UserDetails `yaml:"Users"`
-}
-
+// InitUsers fetches and unmarshal the user data from yaml config files
 func InitUsers() {
 
-	users := Users{}
+	users := schema.Users{}
 
 	UsersYamlFile, err := ioutil.ReadFile("config/users.yaml") //Todo: need to fetch an abosolute path later
 	fmt.Printf("%s", UsersYamlFile)
