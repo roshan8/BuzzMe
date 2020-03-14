@@ -11,7 +11,7 @@ import (
 )
 
 // InitUsers fetches and unmarshal the user data from yaml config files
-func InitUsers() {
+func getAllUsersHandler() {
 
 	users := schema.Users{}
 
