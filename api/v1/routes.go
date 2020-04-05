@@ -3,7 +3,8 @@ package v1
 import (
 	"buzzme/api"
 	v1 "buzzme/api"
-	user "buzzme/api/v1/users"
+	"buzzme/api/v1/incident"
+	user "buzzme/api/v1/user"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -19,5 +20,6 @@ func Routes(r chi.Router) {
 // Init initializes all the v1 routes
 func Init(r chi.Router) {
 	r.Route("/users", user.Init)
+	r.Route("/incident", incident.Init)
 	// TODO: remaining routes for escalation policy and others
 }

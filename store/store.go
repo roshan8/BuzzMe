@@ -63,7 +63,6 @@ func getCommonIndexes(tableName string) map[string]string {
 	return map[string]string{
 		fmt.Sprintf("%s_created_at", idx): "created_at",
 		fmt.Sprintf("%s_updated_at", idx): "updated_at",
-		fmt.Sprintf("%s_deleted_at", idx): "deleted_at",
 	}
 }
 

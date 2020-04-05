@@ -3,10 +3,14 @@ package schema
 // Struct UserDetails holds the all user information
 type Incident struct {
 	BaseSchema
-	CheckName string `json:"check_name"`
-	Slug      string `json:"-"`
-	State     string `json:"state"`
-	Deleted   bool   `json:"deleted" sql:"default:false"`
+	IncidentName string `json:"check_name"`
+	State        string `json:"state"`
+}
+
+// Schema describing the new incident creation payload request
+type IncidentReq struct {
+	IncidentName string `json:"check_name"`
+	State        string `json:"state"`
 }
 
 // TODO: Needs to figure out the part on how can we validate the fields in nested struct

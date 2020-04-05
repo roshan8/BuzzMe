@@ -62,6 +62,23 @@ func (cs *IncidentStore) All() ([]*schema.Incident, *errors.AppError) {
 	return Incidents, nil
 }
 
+// Create a new Incident
+func (cs *IncidentStore) Create(req *schema.IncidentReq) (*schema.Incident, *errors.AppError) {
+	if recordExists("Incident", fmt.Sprintf("name='%s'", req.IncidentName)) {
+		return nil, errors.BadRequest("city name alreay registered")
+	}
+
+	incident := &schema.Incident{
+		IncidentName: req.IncidentName,
+		State:        req.State,
+	}
+	if err := cs.DB.Save(incident).Error; err != nil {
+		return nil, errors.InternalServerStd().AddDebug(err)
+	}
+
+	return incident, nil
+}
+
 // // Create a new User
 // func (cs *UserStore) Create(req *schema.UserReq) (*schema.User, *errors.AppError) {
 // 	if recordExists("cities", fmt.Sprintf("name='%s' and deleted_at=null", req.Name)) {
