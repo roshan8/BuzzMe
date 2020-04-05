@@ -11,13 +11,12 @@ import (
 
 // InitUsers fetches and unmarshal the user data from yaml config files
 func getAllIncidentsHandler(w http.ResponseWriter, r *http.Request) *errors.AppError {
-
-	users, err := store.Incident().All()
+	incidents, err := store.Incident().All()
 	if err != nil {
 		return err
 	}
 
-	respond.OK(w, users)
+	respond.OK(w, incidents)
 	return nil
 }
 
