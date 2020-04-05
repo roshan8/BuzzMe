@@ -1,18 +1,28 @@
 package main
 
 import (
+	"buzzme/api"
+	v1 "buzzme/api/v1"
+	"buzzme/config"
+	appmiddleware "buzzme/middleware"
+	"buzzme/pkg/trace"
+	"fmt"
+	"net/http"
+
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/rs/cors"
+)
 
-	v1 "github.com/BuzzMe/api/v1/users" //TODO: Need to import only v1 directly and use all the methods
-	"github.com/BuzzMe/config"
+var (
+	name    = "BuzzMe"
+	version = "0.0.1"
 )
 
 func main() {
-
 	config.Initialize()
-	v1.InitUsers()
+	api.InitService(name, version)
+	trace.Setup(config.Env)
 
 	router := chi.NewRouter()
 	cors := cors.New(cors.Options{
@@ -34,7 +44,15 @@ func main() {
 	router.Use(cors.Handler)
 	router.Use(
 		middleware.Logger,
-		// appmiddleware.Recoverer,      # TODO: need to use this later
+		appmiddleware.Recoverer,
 	)
 
+	// Initialize the version 1 routes of the API
+	// router.Get("/", api.IndexHandeler)
+	// router.Get("/top", api.HealthHandeler)
+	// router.Route("/v1", v1.Init)
+	router.Route("/", v1.Routes)
+
+	trace.Log.Infof("Starting %s:%s on port :%s\n", name, version, config.Port)
+	http.ListenAndServe(fmt.Sprintf(":%s", config.Port), router)
 }

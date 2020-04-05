@@ -1,18 +1,23 @@
 package v1
 
 import (
-	//TODO: Need to import only v1 directly and use all the methods
+	"buzzme/api"
+	v1 "buzzme/api"
+	user "buzzme/api/v1/users"
+	"net/http"
+
 	"github.com/go-chi/chi"
 )
 
 // Routes registered routes
 func Routes(r chi.Router) {
-	// r.Method(http.MethodGet, "/", v1.Handler(api.IndexHandeler))
+	r.Route("/api/v1", Init)
+	r.Method(http.MethodGet, "/", v1.Handler(api.IndexHandeler))
 	// r.Get("/top", api.HealthHandeler)
-	r.Route("/v1", Init)
 }
 
 // Init initializes all the v1 routes
 func Init(r chi.Router) {
-	r.Route("/users", users.getAllUsersHandler)
+	r.Route("/users", user.Init)
+	// TODO: remaining routes for escalation policy and others
 }

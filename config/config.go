@@ -34,7 +34,7 @@ func GetAllEnv() {
 	mustEnv("PORT", &Port, "8080")
 	mustEnv("DB_DRIVER", &DBDriver, "postgres")
 	mustEnv("DB_DATASOURCE", &DBDataSource,
-		"user=postgres password=postgres dbname=weather_monster sslmode=disable host=localhost")
+		"user=postgres password=mysecretpassword dbname=buzzme_prod sslmode=disable host=localhost")
 }
 
 // mustEnv get the env variable with the name 'key' and store it in 'value'

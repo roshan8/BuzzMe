@@ -1,11 +1,13 @@
 package schema
 
+// Struct UserDetails holds the all user information
 type UserDetails struct {
 	Username string `yaml:"username"`
 	Email    string `yaml:"email"`
 	Phone    string `yaml:"phone"`
 }
 
+// Struct Users holds the all user details
 type Users struct {
 	UserConfigs []UserDetails `yaml:"Users"`
 }
