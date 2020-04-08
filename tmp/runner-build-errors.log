@@ -1,0 +1,5 @@
+# buzzme/middleware
+middleware/user.go:8:5: Store redeclared in this block
+	previous declaration at middleware/incident.go:15:5
+middleware/user.go:11:6: Init redeclared in this block
+	previous declaration at middleware/incident.go:18:15

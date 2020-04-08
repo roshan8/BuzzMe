@@ -36,3 +36,12 @@ func createIncidentHandler(w http.ResponseWriter, r *http.Request) *errors.AppEr
 	respond.Created(w, city)
 	return nil
 }
+
+// Get incident details by ID
+func getIncidentHandler(w http.ResponseWriter, r *http.Request) *errors.AppError {
+	ctx := r.Context()
+	incident, _ := ctx.Value("incident").(*schema.Incident)
+
+	respond.OK(w, incident)
+	return nil
+}

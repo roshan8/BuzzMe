@@ -4,6 +4,8 @@ import (
 	"buzzme/pkg/errors"
 	"buzzme/schema"
 	"fmt"
+
+	"github.com/jinzhu/gorm"
 )
 
 // UserStore implements the cities interface
@@ -64,9 +66,22 @@ func (cs *IncidentStore) All() ([]*schema.Incident, *errors.AppError) {
 	return Incidents, nil
 }
 
+// GetByID returns the matched record for the given id
+func (cs *IncidentStore) GetByID(incidentID uint) (*schema.Incident, *errors.AppError) {
+	var incident schema.Incident
+	if err := cs.DB.First(&incident, "id=?", incidentID, false).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, errors.BadRequest("invalid incident id").AddDebug(err)
+		}
+		return nil, errors.InternalServerStd().AddDebug(err)
+	}
+
+	return &incident, nil
+}
+
 // Create a new Incident
 func (cs *IncidentStore) Create(req *schema.IncidentReq) (*schema.Incident, *errors.AppError) {
-	if recordExists("Incident", fmt.Sprintf("name='%s'", req.IncidentName)) {
+	if recordExists("Incident", fmt.Sprintf("incident_name='%s'", req.IncidentName)) {
 		return nil, errors.BadRequest("city name alreay registered")
 	}
 
