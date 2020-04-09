@@ -55,15 +55,15 @@ func (cs *IncidentStore) createIndexesIfNotExists() {
 }
 
 // All returns all the Incidents
-func (cs *IncidentStore) All() ([]*schema.Incident, *errors.AppError) {
-	var Incidents []*schema.Incident
+func (cs *IncidentStore) All() ([]*schema.IncidentShort, *errors.AppError) {
+	var IncidentShorts []*schema.IncidentShort
 	// if err := cs.DB.Find(&Incidents).Error; err != nil {         // For displaying all the columns
 	// TODO: remove the above code
-	if err := cs.DB.Select("incident_name, state").Find(&Incidents).Error; err != nil {
+	if err := cs.DB.Select("incident_name, state").Find(&IncidentShorts).Error; err != nil {
 		return nil, errors.InternalServerStd().AddDebug(err)
 	}
 
-	return Incidents, nil
+	return IncidentShorts, nil
 }
 
 // GetByID returns the matched record for the given id

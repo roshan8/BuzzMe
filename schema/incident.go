@@ -7,6 +7,11 @@ type Incident struct {
 	State        string `json:"state"`
 }
 
+type IncidentShort struct {
+	IncidentName string `json:"check_name"`
+	State        string `json:"state"`
+}
+
 // Schema describing the new incident creation payload request
 type IncidentReq struct {
 	IncidentName string `json:"check_name"`
