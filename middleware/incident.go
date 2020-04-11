@@ -1,12 +1,12 @@
 package middleware
 
 import (
-	"context"
-	"net/http"
-	"strconv"
 	"buzzme/pkg/errors"
 	"buzzme/pkg/respond"
 	"buzzme/store"
+	"context"
+	"net/http"
+	"strconv"
 
 	"github.com/go-chi/chi"
 )

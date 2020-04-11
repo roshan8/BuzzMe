@@ -57,9 +57,9 @@ func (cs *IncidentStore) createIndexesIfNotExists() {
 // All returns all the Incidents
 func (cs *IncidentStore) All() ([]*schema.Incident, *errors.AppError) {
 	var Incidents []*schema.Incident
-	// if err := cs.DB.Find(&Incidents).Error; err != nil {         // For displaying all the columns
+	// if err := cs.DB.Find(&Incidents).Error; err != nil { // For displaying all the columns
 	// TODO: remove the above code
-	if err := cs.DB.Select("incident_name, state").Find(&Incidents).Error; err != nil {
+	if err := cs.DB.Select("id, incident_name, state").Find(&Incidents).Error; err != nil {
 		return nil, errors.InternalServerStd().AddDebug(err)
 	}
 
@@ -69,7 +69,7 @@ func (cs *IncidentStore) All() ([]*schema.Incident, *errors.AppError) {
 // GetByID returns the matched record for the given id
 func (cs *IncidentStore) GetByID(incidentID uint) (*schema.Incident, *errors.AppError) {
 	var incident schema.Incident
-	if err := cs.DB.First(&incident, "id=?", incidentID, false).Error; err != nil {
+	if err := cs.DB.First(&incident, "id=?", incidentID).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, errors.BadRequest("invalid incident id").AddDebug(err)
 		}
