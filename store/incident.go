@@ -81,9 +81,6 @@ func (cs *IncidentStore) GetByID(incidentID uint) (*schema.Incident, *errors.App
 
 // Create a new Incident
 func (cs *IncidentStore) Create(req *schema.IncidentReq) (*schema.Incident, *errors.AppError) {
-	if recordExists("Incident", fmt.Sprintf("incident_name='%s'", req.IncidentName)) {
-		return nil, errors.BadRequest("city name alreay registered")
-	}
 
 	incident := &schema.Incident{
 		IncidentName: req.IncidentName,

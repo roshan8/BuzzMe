@@ -19,7 +19,7 @@ func Routes(r chi.Router) {
 
 // Init initializes all the v1 routes
 func Init(r chi.Router) {
-	r.Route("/users", user.Init)
+	r.Route("/user", user.Init)
 	r.Route("/incident", incident.Init)
 	// TODO: remaining routes for escalation policy and others
 }

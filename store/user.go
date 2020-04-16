@@ -19,8 +19,8 @@ func NewUserStore(st *Conn) *UserStore {
 }
 
 func (cs *UserStore) createTableIfNotExists() {
-	if !cs.DB.HasTable(&schema.Users{}) {
-		if err := cs.DB.CreateTable(&schema.Users{}).Error; err != nil {
+	if !cs.DB.HasTable(&schema.User{}) {
+		if err := cs.DB.CreateTable(&schema.User{}).Error; err != nil {
 			fmt.Println(err)
 		}
 	}
@@ -29,11 +29,11 @@ func (cs *UserStore) createTableIfNotExists() {
 }
 
 func (cs *UserStore) createIndexesIfNotExists() {
-	scope := cs.DB.NewScope(&schema.Users{})
+	scope := cs.DB.NewScope(&schema.User{})
 	commonIndexes := getCommonIndexes(scope.TableName())
 	for k, v := range commonIndexes {
 		if !scope.Dialect().HasIndex(scope.TableName(), k) {
-			err := cs.DB.Model(&schema.Users{}).AddIndex(k, v).Error
+			err := cs.DB.Model(&schema.User{}).AddIndex(k, v).Error
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -45,7 +45,7 @@ func (cs *UserStore) createIndexesIfNotExists() {
 	}
 	for k, v := range uniqueIndexes {
 		if !scope.Dialect().HasIndex(scope.TableName(), k) {
-			if err := cs.DB.Model(&schema.Users{}).AddUniqueIndex(k, v...).Error; err != nil {
+			if err := cs.DB.Model(&schema.User{}).AddUniqueIndex(k, v...).Error; err != nil {
 				fmt.Println(err)
 			}
 		}
@@ -53,8 +53,8 @@ func (cs *UserStore) createIndexesIfNotExists() {
 }
 
 // All returns all the users
-func (cs *UserStore) All() ([]*schema.Users, *errors.AppError) {
-	var users []*schema.Users
+func (cs *UserStore) All() ([]*schema.User, *errors.AppError) {
+	var users []*schema.User
 	if err := cs.DB.Find(&users).Error; err != nil {
 		return nil, errors.InternalServerStd().AddDebug(err)
 	}
@@ -62,23 +62,23 @@ func (cs *UserStore) All() ([]*schema.Users, *errors.AppError) {
 	return users, nil
 }
 
-// // Create a new User
-// func (cs *UserStore) Create(req *schema.UserReq) (*schema.User, *errors.AppError) {
-// 	if recordExists("cities", fmt.Sprintf("name='%s' and deleted_at=null", req.Name)) {
-// 		return nil, errors.BadRequest("User name alreay registered")
-// 	}
+// Create a new User
+func (cs *UserStore) Create(req *schema.UserReq) (*schema.User, *errors.AppError) {
+	if recordExists("users", fmt.Sprintf("email='%s'", req.Email)) {
+		return nil, errors.BadRequest("User name alreay registered")
+	}
 
-// 	User := &schema.User{
-// 		Name:      req.Name,
-// 		Latitude:  req.Latitude,
-// 		Longitude: req.Longitude,
-// 	}
-// 	if err := cs.DB.Save(User).Error; err != nil {
-// 		return nil, errors.InternalServerStd().AddDebug(err)
-// 	}
+	User := &schema.User{
+		Username: req.Username,
+		Email:    req.Email,
+		Phone:    req.Phone,
+	}
+	if err := cs.DB.Save(User).Error; err != nil {
+		return nil, errors.InternalServerStd().AddDebug(err)
+	}
 
-// 	return User, nil
-// }
+	return User, nil
+}
 
 // // GetByID returns the matched record for the given id
 // func (cs *UserStore) GetByID(UserID uint) (*schema.User, *errors.AppError) {

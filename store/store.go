@@ -21,7 +21,7 @@ func Init() {
 	}
 	dbConn = db
 	db.AutoMigrate(
-		&schema.Users{},
+		&schema.User{},
 		&schema.Incident{},
 		//TODO: add escalation policy and other schema
 	)
