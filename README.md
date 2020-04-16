@@ -7,7 +7,7 @@ ProgrammingLanguage:
 - GoLang
 
 DataStore:
-- Redis
+- Postgres
 
 ThirdParty Provider
 - Plivo/Twilio
