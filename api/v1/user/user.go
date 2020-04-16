@@ -5,6 +5,8 @@ import (
 
 	"buzzme/pkg/errors"
 	"buzzme/pkg/respond"
+	"buzzme/schema"
+	"buzzme/utils"
 )
 
 // InitUsers fetches and unmarshal the user data from yaml config files
@@ -35,3 +37,29 @@ func getAllUsersHandler(w http.ResponseWriter, r *http.Request) *errors.AppError
 	respond.OK(w, users)
 	return nil
 }
+
+// creates new user
+func createUserHandler(w http.ResponseWriter, r *http.Request) *errors.AppError {
+	var input schema.UserReq
+
+	if err := utils.Decode(r, &input); err != nil {
+		return errors.BadRequest(err.Error()).AddDebug(err)
+	}
+
+	city, err := store.User().Create(&input)
+	if err != nil {
+		return err
+	}
+
+	respond.Created(w, city)
+	return nil
+}
+
+// Get incident details by ID
+// func getIncidentHandler(w http.ResponseWriter, r *http.Request) *errors.AppError {
+// 	ctx := r.Context()
+// 	incident, _ := ctx.Value("incident").(*schema.Incident)
+
+// 	respond.OK(w, incident)
+// 	return nil
+// }
