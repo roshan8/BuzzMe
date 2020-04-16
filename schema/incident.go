@@ -3,13 +3,13 @@ package schema
 // Struct UserDetails holds the all user information
 type Incident struct {
 	BaseSchema
-	IncidentName string `json:"check_name"`
+	IncidentName string `json:"incident_name"`
 	State        string `json:"state"`
 }
 
 // Schema describing the new incident creation payload request
 type IncidentReq struct {
-	IncidentName string `json:"check_name"`
+	IncidentName string `json:"incident_name"`
 	State        string `json:"state"`
 }
 

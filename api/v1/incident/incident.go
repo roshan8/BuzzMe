@@ -28,12 +28,12 @@ func createIncidentHandler(w http.ResponseWriter, r *http.Request) *errors.AppEr
 		return errors.BadRequest(err.Error()).AddDebug(err)
 	}
 
-	city, err := store.Incident().Create(&input)
+	incident, err := store.Incident().Create(&input)
 	if err != nil {
 		return err
 	}
 
-	respond.Created(w, city)
+	respond.Created(w, incident)
 	return nil
 }
 
