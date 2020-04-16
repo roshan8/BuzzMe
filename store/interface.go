@@ -17,7 +17,7 @@ type Store interface {
 type User interface {
 	All() ([]*schema.User, *errors.AppError)
 	Create(req *schema.UserReq) (*schema.User, *errors.AppError)
-	// GetByID(cityID uint) (*schema.City, *errors.AppError)
+	GetByID(userID uint) (*schema.User, *errors.AppError)
 	// Update(city *schema.City, update *schema.City) (*schema.City, *errors.AppError)
 	// Delete(cityID uint) *errors.AppError
 }

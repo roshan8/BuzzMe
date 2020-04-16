@@ -55,11 +55,10 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) *errors.AppError 
 	return nil
 }
 
-// Get incident details by ID
-// func getIncidentHandler(w http.ResponseWriter, r *http.Request) *errors.AppError {
-// 	ctx := r.Context()
-// 	incident, _ := ctx.Value("incident").(*schema.Incident)
-
-// 	respond.OK(w, incident)
-// 	return nil
-// }
+// Get User details by ID
+func getUserHandler(w http.ResponseWriter, r *http.Request) *errors.AppError {
+	ctx := r.Context()
+	user, _ := ctx.Value("user").(*schema.User)
+	respond.OK(w, user)
+	return nil
+}

@@ -4,6 +4,8 @@ import (
 	"buzzme/pkg/errors"
 	"buzzme/schema"
 	"fmt"
+
+	"github.com/jinzhu/gorm"
 )
 
 // UserStore implements the cities interface
@@ -80,18 +82,18 @@ func (cs *UserStore) Create(req *schema.UserReq) (*schema.User, *errors.AppError
 	return User, nil
 }
 
-// // GetByID returns the matched record for the given id
-// func (cs *UserStore) GetByID(UserID uint) (*schema.User, *errors.AppError) {
-// 	var User schema.User
-// 	if err := cs.DB.First(&User, "id=? and deleted=?", UserID, false).Error; err != nil {
-// 		if err == gorm.ErrRecordNotFound {
-// 			return nil, errors.BadRequest("invalid User id").AddDebug(err)
-// 		}
-// 		return nil, errors.InternalServerStd().AddDebug(err)
-// 	}
+// GetByID returns the matched record for the given id
+func (cs *UserStore) GetByID(UserID uint) (*schema.User, *errors.AppError) {
+	var User schema.User
+	if err := cs.DB.First(&User, "id=?", UserID).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, errors.BadRequest("invalid User id").AddDebug(err)
+		}
+		return nil, errors.InternalServerStd().AddDebug(err)
+	}
 
-// 	return &User, nil
-// }
+	return &User, nil
+}
 
 // // Update the User name, lat, lon values
 // func (cs *UserStore) Update(User *schema.User, update *schema.User) (*schema.User, *errors.AppError) {

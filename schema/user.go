@@ -2,6 +2,7 @@ package schema
 
 // Struct UserDetails holds the all user information
 type User struct {
+	BaseSchema
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
