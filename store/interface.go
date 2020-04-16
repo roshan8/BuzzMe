@@ -13,7 +13,7 @@ type Store interface {
 	// TODO: escalation policy and others
 }
 
-// Cities store interface expose the city db methods
+// User store interface expose the User db methods/operations
 type User interface {
 	All() ([]*schema.User, *errors.AppError)
 	Create(req *schema.UserReq) (*schema.User, *errors.AppError)
@@ -22,6 +22,7 @@ type User interface {
 	// Delete(cityID uint) *errors.AppError
 }
 
+// Incident store interface expose the Incident db methods/operations
 type Incident interface {
 	All() ([]*schema.Incident, *errors.AppError)
 	Create(req *schema.IncidentReq) (*schema.Incident, *errors.AppError)

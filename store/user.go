@@ -65,7 +65,7 @@ func (cs *UserStore) All() ([]*schema.User, *errors.AppError) {
 // Create a new User
 func (cs *UserStore) Create(req *schema.UserReq) (*schema.User, *errors.AppError) {
 	if recordExists("users", fmt.Sprintf("email='%s'", req.Email)) {
-		return nil, errors.BadRequest("User name alreay registered")
+		return nil, errors.BadRequest("User email alreay registered")
 	}
 
 	User := &schema.User{
