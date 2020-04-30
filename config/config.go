@@ -3,6 +3,9 @@ package config
 import (
 	"fmt"
 	"os"
+
+	psh "github.com/platformsh/config-reader-go/v2"
+	libpq "github.com/platformsh/config-reader-go/v2/libpq"
 )
 
 const (
@@ -24,7 +27,21 @@ var (
 
 // Initialize ...
 func Initialize() {
-	GetAllEnv()
+
+	GetAllPlatformshEnv()
+	//TODO: Uncomment the following once we stop using platformsh
+	// GetAllEnv()
+}
+
+func GetAllPlatformshEnv() {
+
+	// Create a NewRuntimeConfig object to ease reading the Platform.sh environment variables.
+	config, _ := psh.NewRuntimeConfig()
+	credentials, _ := config.Credentials("postgresql")
+	formatted, _ := libpq.FormattedCredentials(credentials)
+
+	fmt.Println(formatted)
+
 }
 
 // GetAllEnv should get all the env configs required for the app.
