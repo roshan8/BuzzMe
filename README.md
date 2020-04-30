@@ -7,7 +7,7 @@ ProgrammingLanguage:
 - GoLang
 
 DataStore:
-- Postgres
+- Postgres (Tested on Postgres11)
 
 ThirdParty Provider
 - Plivo/Twilio
