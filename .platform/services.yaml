@@ -3,6 +3,6 @@
 # Each service listed will be deployed
 # to power your Platform.sh project.
 
-db:
-    dbpostgres: postgresql:11
+dbpostgres:
+    type: postgresql:11
     disk: 1024
