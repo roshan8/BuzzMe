@@ -28,9 +28,9 @@ var (
 // Initialize ...
 func Initialize() {
 
-	GetAllPlatformshEnv()
+	// GetAllPlatformshEnv()
 	//TODO: Uncomment the following once we stop using platformsh
-	// GetAllEnv()
+	GetAllEnv()
 }
 
 func GetAllPlatformshEnv() {
@@ -51,7 +51,7 @@ func GetAllEnv() {
 	mustEnv("PORT", &Port, "8080")
 	mustEnv("DB_DRIVER", &DBDriver, "postgres")
 	mustEnv("DB_DATASOURCE", &DBDataSource,
-		"user=postgres password=mysecretpassword dbname=buzzme_prod sslmode=disable host=localhost")
+		"user=buzzme_prod password=buzzme_prod dbname=buzzme_prod sslmode=disable host=postgresdatabase.internal")
 }
 
 // mustEnv get the env variable with the name 'key' and store it in 'value'
