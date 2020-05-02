@@ -33,6 +33,7 @@ func Initialize() {
 	GetAllEnv()
 }
 
+//TODO: delete this once we stop hosting on platformsh
 func GetAllPlatformshEnv() {
 
 	// Create a NewRuntimeConfig object to ease reading the Platform.sh environment variables.

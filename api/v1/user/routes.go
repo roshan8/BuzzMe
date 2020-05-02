@@ -18,11 +18,11 @@ func Init(r chi.Router) {
 
 	store = api.Store
 
-	// ROUTE: {host}/v1/cities
+	// ROUTE: {host}/v1/user
 	r.Method(http.MethodGet, "/", api.Handler(getAllUsersHandler))
 	r.Method(http.MethodPost, "/", api.Handler(createUserHandler))
 	r.With(middleware.UserRequired).
-		Route("/{cityID:[0-9]+}", userIDSubRoutes)
+		Route("/{userID:[0-9]+}", userIDSubRoutes)
 }
 
 // ROUTE: {host}/v1/incident/:incidentID/*

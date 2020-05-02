@@ -24,6 +24,7 @@ func IncidentRequired(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		incidentIDStr := chi.URLParam(r, "incidentID")
 		incidentID, er := strconv.Atoi(incidentIDStr)
+
 		if er != nil {
 			respond.Fail(w, errors.BadRequest("invalid id").AddDebug(er))
 			return
